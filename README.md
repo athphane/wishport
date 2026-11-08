@@ -28,7 +28,27 @@ mkdir -p ~/.local/bin
 install -m 755 wishport ~/.local/bin/wishport
 ```
 
-Linux is the primary platform. macOS builds are supported by the source and CI configuration, but have not been runtime-tested in the development environment. The release workflow produces Linux amd64/arm64 archives and checksums as a draft when a version tag is pushed; no release has been published.
+Linux is the primary platform and CI runs on Ubuntu. macOS can be built from source, but is not covered by CI or release binaries and has not been runtime-tested in the development environment.
+
+## Release binaries
+
+[GoReleaser](https://goreleaser.com/) builds Linux amd64 and arm64 binaries using [.goreleaser.yaml](.goreleaser.yaml). Each versioned `.tar.gz` includes `wishport`, the license, README, example configuration, and documentation. `checksums.txt` contains SHA-256 checksums, and `wishport --version` reports the release version.
+
+Install GoReleaser v2.20.0 to check the configuration or build local archives without publishing:
+
+```sh
+make release-check
+make release-snapshot
+```
+
+Snapshot archives are written to `dist/`. To prepare a release, tag the intended commit with a semantic version and push the tag:
+
+```sh
+git tag -a v0.1.0 -m "Release v0.1.0"
+git push origin v0.1.0
+```
+
+The GitHub Actions release workflow runs tests, builds both architectures on Ubuntu, and uploads archives and checksums to a **draft GitHub release** with generated release notes. It uses the built-in `GITHUB_TOKEN`; no additional secret is required. Review the draft on GitHub and publish it when ready. Tags such as `v0.2.0-rc.1` are marked as prereleases.
 
 ## Keyboard controls
 

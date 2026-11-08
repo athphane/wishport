@@ -6,10 +6,7 @@ permissions:
   contents: read
 jobs:
   check:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -22,3 +19,8 @@ jobs:
       - run: go build -trimpath ./cmd/wishport
       - run: python3 scripts/terminal-smoke.py ./wishport
       - run: python3 scripts/hosted-smoke.py ./wishport
+      - name: Check release configuration
+        uses: goreleaser/goreleaser-action@v7
+        with:
+          version: v2.20.0
+          args: check

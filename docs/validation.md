@@ -22,9 +22,11 @@ The independent security review identified two probe issues that were fixed befo
 
 Following a reported authentication failure, read-only live API checks with the user's saved credential confirmed HTTP 200 and exposed an undocumented empty `links` array. The parser was corrected and compared with Anvil's handling; a full refresh then loaded server and site inventory without warnings. A server-detail lookup also returned HTTP 200. No credential was printed or copied into source/configuration, and no Forge write was performed. End-to-end SSH connection/provisioning remains unverified against real servers.
 
-Linux native operation is tested. Linux arm64 and macOS arm64 cross-builds both passed, but those platforms have not been runtime-tested on this host. CI includes Linux and macOS jobs; those remote jobs have not yet run. Native macOS Keychain storage is not implemented; session/environment credentials work there.
+Linux native operation is tested. Linux arm64 and macOS arm64 cross-builds both passed, but those platforms have not been runtime-tested on this host. CI runs on Ubuntu only and checks the GoReleaser configuration. Native macOS Keychain storage is not implemented; session/environment credentials work there.
 
-The public repository is https://github.com/athphane/wishport. No release tag is included in the initial publication. Release automation creates Linux archives and a draft release when the maintainer deliberately pushes a version tag. Existing user SSH files and keys were not changed.
+The public repository is https://github.com/athphane/wishport. No release tag is included in the initial publication. GoReleaser creates versioned Linux amd64/arm64 archives, SHA-256 checksums, and a draft release when the maintainer deliberately pushes a semantic version tag. See [release instructions](../README.md#release-binaries) for local snapshot builds and publishing. Existing user SSH files and keys were not changed.
+
+The GoReleaser v2.20.0 configuration and both workflows pass local validation (`goreleaser check` and Actionlint). A snapshot release built both Linux architectures; archive contents and SHA-256 checksums were verified. The packaged amd64 executable reported the snapshot version and passed both terminal smoke scripts. GitHub release creation and publishing have not been exercised.
 
 ## Scope choices
 

@@ -9,21 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
       - run: go test ./...
-      - name: Build Linux archives
-        run: |
-          mkdir -p dist
-          for arch in amd64 arm64; do
-            CGO_ENABLED=0 GOOS=linux GOARCH="$arch" go build -trimpath -ldflags="-s -w -X github.com/athphane/wishport/internal/cli.Version=${GITHUB_REF_NAME}" -o dist/wishport ./cmd/wishport
-            tar -C dist -czf "dist/wishport_linux_${arch}.tar.gz" wishport
-          done
-          rm dist/wishport
-          cd dist
-          sha256sum *.tar.gz > checksums.txt
-      - name: Create draft release
+      - name: Build and upload draft release
+        uses: goreleaser/goreleaser-action@v7
+        with:
+          version: v2.20.0
+          args: release --clean
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/* --draft --generate-notes
+          GITHUB_TOKEN: ${{ github.token }}
