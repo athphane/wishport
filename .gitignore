@@ -1,0 +1,15 @@
+/wishport
+/dist/
+/coverage.out
+*.test
+
+# Legacy development executable
+/sshdir
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+/config.yaml
+*.pem
+*.key
+__pycache__/

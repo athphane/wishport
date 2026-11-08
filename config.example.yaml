@@ -1,0 +1,34 @@
+version: 1
+sources:
+  ssh_config: true
+  wishlist: true
+  # wishlist_config: ~/.config/wishlist
+# Optional read-only network discovery (all disabled until configured).
+# discovery:
+#   mdns:
+#     enabled: true
+#     domain: local
+#     timeout: 2s
+#   srv:
+#     domains: [example.com]
+#     timeout: 5s
+#   tailscale:
+#     tailnet: example.com
+#     timeout: 15s
+forge:
+  enabled: true
+  cache_ttl: 168h
+  key_install: ask
+  # public_key: ~/.ssh/id_ed25519.pub
+connections:
+  - id: home-pi
+    name: raspberry-pi
+    host: 192.0.2.10
+    user: pi
+    port: 22
+    description: Example home server
+  - id: staging
+    name: staging
+    ssh_alias: staging-alias
+    description: Uses existing OpenSSH configuration
+    # directory: /srv/staging application

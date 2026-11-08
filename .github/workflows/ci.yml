@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - run: go test -race ./...
+      - run: go vet ./...
+      - run: go run honnef.co/go/tools/cmd/staticcheck@v0.8.2 ./...
+      - run: go build -trimpath ./cmd/wishport
+      - run: python3 scripts/terminal-smoke.py ./wishport
+      - run: python3 scripts/hosted-smoke.py ./wishport
