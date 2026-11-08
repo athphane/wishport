@@ -1,0 +1,8 @@
+Host build-runner
+    HostName 192.0.2.30
+    User runner
+
+Host homelab
+    HostName 192.0.2.40
+    User admin
+    Port 2222

@@ -1,0 +1,18 @@
+version: 1
+forge:
+  enabled: false
+sources:
+  ssh_config: false
+  wishlist: false
+connections:
+  - id: devbox
+    name: devbox
+    host: 192.0.2.10
+    user: developer
+    description: Local development workstation
+  - id: staging-preview
+    name: staging-preview
+    host: 192.0.2.20
+    user: deploy
+    directory: /srv/preview
+    description: Preview environment

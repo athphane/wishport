@@ -8,6 +8,27 @@
 
 This is an independent Go application with original code. It has no dependency on Wishlist or another SSH manager. Charm libraries provide the terminal UI. Wishlist-compatible configuration and familiar navigation are the baseline, with Forge discovery and safe key preparation built in.
 
+## A look inside
+
+The combined directory brings Forge sites, SSH aliases, Wishlist hosts, and YAML entries together.
+
+![Wishport combined directory with fictional Forge sites, Wishlist hosts, SSH config aliases, and YAML entries](assets/screenshots/directory.png)
+
+<details>
+<summary><strong>Forge table and server-name search</strong></summary>
+
+**Forge at a glance.** Press `t` to see sites and servers alongside their organization, server, and SSH target.
+
+![Wishport Forge tab in table view with fictional organizations, servers, sites, and SSH targets](assets/screenshots/forge.png)
+
+**Find the server, skip the sites.** Prefix your search with `server:` to match host and server names only.
+
+![Wishport searching server:production across fictional Forge servers and Wishlist hosts](assets/screenshots/search.png)
+
+</details>
+
+*All screenshots use [fictional demo configuration](scripts/screenshots/README.md), reserved example domains, and documentation-only IP addresses. No personal configuration or credentials are used.*
+
 ## Build and run
 
 Requires Go 1.27.2 or newer and OpenSSH (`ssh`, plus `ssh-add` and `ssh-keygen` for key preparation).

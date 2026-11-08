@@ -1,0 +1,7 @@
+Host backup-node
+    HostName 192.0.2.50
+    User backup
+
+Host production-tools
+    HostName 192.0.2.60
+    User deploy
